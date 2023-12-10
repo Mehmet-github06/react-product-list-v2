@@ -8,10 +8,12 @@ import { useState } from "react";
 const ProductsList = () => {
   const [newArr, setNewArr] = useState(products);
   const [btnActive, setBtnActive] = useState("all");
+  const [search, setSearch] = useState("");
 
   const handleCtecory = (e) => {
     if (e.target.textContent.toLowerCase() === "all") {
       setNewArr(products);
+      setBtnActive("all");
     } else {
       setNewArr(
         products.filter(
@@ -19,19 +21,16 @@ const ProductsList = () => {
             e.target.textContent.toLowerCase() === item.category.toLowerCase()
         )
       );
+      setBtnActive(e.target.textContent.toLowerCase());
     }
-
-    setBtnActive(
-      e.target.textContent.toLowerCase() === "all"
-        ? "all"
-        : e.target.textContent.toLowerCase()
-    );
   };
 
   const handleSearch = (e) => {
-    const searchTerm = e.target.value.trim().toLowerCase();
+    setSearch(e.target.value.trim().toLowerCase());
+
+    // console.log(newArr);
     const filteredProducts = newArr.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm)
+      item.title.toString().toLocaleLowerCase().includes(search)
     );
     setNewArr(filteredProducts);
   };
@@ -44,6 +43,7 @@ const ProductsList = () => {
         btnActive={btnActive}
       />
       <Form.Control
+        value={search}
         onChange={handleSearch}
         placeholder="Search Product..."
         type="search"
