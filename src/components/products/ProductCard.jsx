@@ -5,7 +5,7 @@ import { MdFavorite } from "react-icons/md";
 const ProductCard = ({ product }) => {
   const [heart, setHeart] = useState(false);
 
-  const { id, price, title, description, image, category } = product;
+  const { price, title, image } = product;
 
   const handlefavori = () => {
     setHeart(!heart);
