@@ -6,25 +6,45 @@ import { Header } from "../header/Header";
 import { useState } from "react";
 
 const ProductsList = () => {
-  // const [urun, setUrun] = useState("all");
   const [newArr, setNewArr] = useState(products);
+  const [btnActive, setBtnActive] = useState("all");
 
   const handleCtecory = (e) => {
-   if(e.target.textContent.toLowerCase() === "all"){
-    setNewArr(products)
-   }else{
-    setNewArr(
-      products.filter(
-        (item) =>
-          e.target.textContent.toLowerCase() === item.category.toLowerCase()
-      )
+    if (e.target.textContent.toLowerCase() === "all") {
+      setNewArr(products);
+    } else {
+      setNewArr(
+        products.filter(
+          (item) =>
+            e.target.textContent.toLowerCase() === item.category.toLowerCase()
+        )
+      );
+    }
+
+    setBtnActive(
+      e.target.textContent.toLowerCase() === "all"
+        ? "all"
+        : e.target.textContent.toLowerCase()
     );
-   }
   };
+
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+    const filteredProducts = newArr.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm)
+    );
+    setNewArr(filteredProducts);
+  };
+
   return (
     <>
-      <Header categories={categories} handleCtecory={handleCtecory} />
+      <Header
+        categories={categories}
+        handleCtecory={handleCtecory}
+        btnActive={btnActive}
+      />
       <Form.Control
+        onChange={handleSearch}
         placeholder="Search Product..."
         type="search"
         className="w-50 m-auto"
