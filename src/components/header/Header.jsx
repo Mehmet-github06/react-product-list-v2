@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container, Stack } from "react-bootstrap";
 import "./Header.scss";
 
-export const Header = ({ categories, handleCtecory, btnActive }) => {
+export const Header = ({ categories, handleCategory, btnActive }) => {
   return (
     <Container className="header">
       <h1>Products List</h1>
@@ -15,7 +15,7 @@ export const Header = ({ categories, handleCtecory, btnActive }) => {
           <Button
             variant="light"
             key={index}
-            onClick={handleCtecory}
+            onClick={handleCategory}
             className={item.toLowerCase() === btnActive && "active" }
           >
             {item.toLocaleUpperCase()}
